@@ -8,3 +8,18 @@ before_install:
     
 script:
     - docker run -e CI=true mcreach/test-docker-react npm run test -- --coverage
+    
+deploy:
+    provider: elasticbeanstalk
+    region: "eu-central-1"
+    app: "test-docker-react"
+    env: "TestDockerReact-env"
+    bucket_name: "elasticbeanstalk-eu-central-1-231556070134"
+    bucket_path: "test-docker-react"
+    on:
+        branch: master
+        
+    access_key_id:
+        secure: $AWS_ACCESS_KEY
+    secret_access_key:
+        secure: $AWS_SECRET_KEY
